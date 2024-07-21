@@ -6,7 +6,7 @@ Shorten Urls
 
 The live version of shortener Hosted on pythonanywhere.
 
-[Live Version](https://shortener.pythonanywhere.com/)
+[Live Version](https://hhshortener.pythonanywhere.com/)
 
 ### Installation & Run Locally
 
