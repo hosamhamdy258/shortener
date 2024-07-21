@@ -1,0 +1,50 @@
+{% load static i18n%}
+<!DOCTYPE html>
+{% get_current_language as LANGUAGE_CODE %}{% get_current_language_bidi as LANGUAGE_BIDI %}
+<html lang="{{ LANGUAGE_CODE|default:'en-us '}}" {% if LANGUAGE_BIDI %}dir="rtl" {% endif %}>
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  {% if LANGUAGE_BIDI %}
+  <link rel="stylesheet" href="{% static '/bootstrap/bootstrap.rtl.min.css' %}" />
+  {% else %}
+  <link rel="stylesheet" href="{% static '/bootstrap/bootstrap.min.css' %}" />
+  {% endif %}
+  <title>{% translate "url shortener"|title %}</title>
+</head>
+
+<body>
+  <div class="container-fluid my-3 d-flex justify-content-center align-items-center" style="height: 90vh;">
+    <div class="border border-3 border-primary rounded-3 p-3 w-100" style="max-width: 1920px;">
+      <div class="row row-cols-1 gy-3">
+        <div class="col">
+          <label for="target-url" id="target-url-label" class="form-label">{% translate 'enter a link to shorten it'|title %}</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="target-url" autocomplete="off">
+            <button type="button" id="shorten-btn" class="btn btn-primary w-25"
+              onclick="get_shorted_url()">{% translate "shorten url"|title %}</button>
+          </div>
+          <div class="text-danger d-none" id="target-url-error">
+
+          </div>
+
+        </div>
+        <div class="col">
+          <label for="shorted-url" class="form-label">{% translate 'shorted url'|title %}</label>
+          <div class="input-group">
+            <input type="text" class="form-control" id="shorted-url" autocomplete="off">
+            <button type="button" id="copy-btn" class="btn btn-primary w-25" data-clipboard-target="#shorted-url">
+              {% translate "copy url"|title %}
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="{% static '/bootstrap/bootstrap.min.js' %}"></script>
+  <script src="{% static '/clipboard/clipboard.min.js' %}"></script>
+  <script src="{% static '/shortener/main.js' %}"></script>
+</body>
+
+</html>

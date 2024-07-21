@@ -1,0 +1,36 @@
+services:
+  shortener:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+    container_name: shortener
+    image: shortener:v1.0
+
+  shortener-prod:
+    build: .
+    command: gunicorn
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/app
+    container_name: shortener-prod
+    image: shortener:v2.0
+    environment:
+      - DJANGO_DEVELOPMENT=False
+
+
+  nginx-shortener:
+      build: ./nginx/
+      container_name: nginx-shortener
+      image: nginx:v1.0
+      ports:
+        - "80:80"
+      depends_on:
+        - shortener-prod
+      volumes:
+        - ./nginx/nginx.conf:/etc/nginx/conf.d/nginx.conf:ro
+        - ./static:/app/static
+        - ./media:/app/media
