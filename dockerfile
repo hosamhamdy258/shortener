@@ -7,10 +7,10 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /app
 
-COPY core_packages.txt .
+COPY requirements.txt .
 
 RUN pip install wheel
-RUN pip install --no-cache-dir -r core_packages.txt
+RUN pip install --no-cache-dir -r requirements.txt
 
 COPY . .
 
